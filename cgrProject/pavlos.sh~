@@ -1,0 +1,8 @@
+for j in `seq 2 2 10`
+do
+    head -$j hg38_knownCanonical.exonNuc.fa|tail -2>gene$j.FA
+    python3 pavlos.py -x gene$j.FA -k 3    
+done
+cat gene*.FAx-coords.txt>x-coordstotal.txt
+cat gene*.FAy-coords.txt>y-coordstotal.txt
+python3 pavlostotalplot.py

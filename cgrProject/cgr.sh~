@@ -1,0 +1,12 @@
+sed '/^[[:space:]]*$/d' hg38_knownCanonical.exonNuc.fa>hg38_knownCanonical.exonNuc.FA
+i=1
+for j in `seq 2 2 10`
+do
+    head -$j hg38_knownCanonical.exonNuc.FA|tail -2>gene$i.FA
+    python3 cgr.py -x gene$i.FA -k 1.5
+    i+=1
+done
+cat gene*.FAx-coords.txt>x-coordstotal.txt
+cat gene*.FAy-coords.txt>y-coordstotal.txt
+rm gene*.FA*
+python3 cgrtotalplot.py
